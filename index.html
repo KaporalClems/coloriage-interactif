@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coloriage interactif</title>
+  <style>
+    .coloring-container {
+      position: relative;
+      width: 800px; /* adapte à la taille de ton image */
+      height: auto;
+    }
+
+    .layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .colorable {
+      mix-blend-mode: multiply;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <h2>Colorie le car courant d’air</h2>
+  <div class="coloring-container">
+    <!-- Image de fond (noir & blanc) -->
+    <img src="fond_noir_et_blanc.png" class="layer"/>
+
+    <!-- Calques colorables (masques) -->
+    <img src="masque_carrosserie.png" class="layer colorable" id="carrosserie" />
+    <img src="masque_roues.png" class="layer colorable" id="roues" />
+    <img src="masque_vitres.png" class="layer colorable" id="vitres" />
+    <img src="masque_parechocs.png" class="layer colorable" id="parechocs" />
+  </div>
+
+  <script>
+    // Exemple simple : clic sur une zone = change la couleur
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'];
+    
+    document.querySelectorAll('.colorable').forEach(layer => {
+      let colorIndex = 0;
+      layer.addEventListener('click', () => {
+        layer.style.filter = `drop-shadow(0 0 0 ${colors[colorIndex]})`;
+        colorIndex = (colorIndex + 1) % colors.length;
+      });
+    });
+  </script>
+</body>
+</html>
